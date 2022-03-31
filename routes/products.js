@@ -1,12 +1,14 @@
 const express = require('express');
-const controllerProducts = require('../controllers/products');
+const { getAllProducts, getByIdProducts } = require('../controllers/products');
+const { checkName, checkQuantity } = require('../middlewares/checkProducts');
 
 const routes = express.Router();
 
 routes.route('/')
-  .get(controllerProducts.getAllProducts);
+  .post(checkName, checkQuantity)
+  .get(getAllProducts);
 
 routes.route('/:id')
-  .get(controllerProducts.getByIdProducts);
+  .get(getByIdProducts);
 
 module.exports = routes;

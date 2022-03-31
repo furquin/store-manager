@@ -1,12 +1,14 @@
 const express = require('express');
-const getSales = require('../controllers/sales');
+const { getAllSales, getSaleById } = require('../controllers/sales');
+const { checkProductId, checkQuantity } = require('../middlewares/checkSales');
 
 const routes = express.Router();
 
 routes.route('/')
-  .get(getSales.getAllSales);
+  .post(checkProductId, checkQuantity)
+  .get(getAllSales);
 
 routes.route('/:id')
-  .get(getSales.getSaleById);
+  .get(getSaleById);
 
 module.exports = routes;
