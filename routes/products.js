@@ -17,13 +17,13 @@ const routes = express.Router();
 
 routes
   .route('/')
-  .post(checkNameExist, checkName, checkQuantity, createProducts)
+  .post(checkName, checkQuantity, checkNameExist, createProducts)
   .get(getAllProducts);
 
 routes
   .route('/:id')
   .get(checkById, getByIdProducts)
-  .put(checkById, checkName, checkQuantity, updateProduct)
+  .put(checkName, checkQuantity, checkById, updateProduct)
   .delete(checkById, deleteByIdProducts);
 
 module.exports = routes;
