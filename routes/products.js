@@ -4,6 +4,7 @@ const {
   getByIdProducts,
   createProducts,
   updateProduct,
+  deleteByIdProducts,
 } = require('../controllers/products');
 const {
   checkNameExist,
@@ -22,6 +23,7 @@ routes
 routes
   .route('/:id')
   .get(checkById, getByIdProducts)
-  .put(checkById, checkName, checkQuantity, updateProduct);
+  .put(checkById, checkName, checkQuantity, updateProduct)
+  .delete(checkById, deleteByIdProducts);
 
 module.exports = routes;
