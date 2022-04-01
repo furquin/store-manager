@@ -3,11 +3,13 @@ const {
   getAllProducts,
   getByIdProducts,
   createProducts,
+  updateProduct,
 } = require('../controllers/products');
 const {
   checkNameExist,
   checkName,
   checkQuantity,
+  checkById,
 } = require('../middlewares/checkProducts');
 
 const routes = express.Router();
@@ -17,7 +19,9 @@ routes
   .post(checkNameExist, checkName, checkQuantity, createProducts)
   .get(getAllProducts);
 
-routes.route('/:id')
-  .get(getByIdProducts);
+routes
+  .route('/:id')
+  .get(checkById, getByIdProducts)
+  .put(checkById, checkName, checkQuantity, updateProduct);
 
 module.exports = routes;
