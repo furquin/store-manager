@@ -1,3 +1,5 @@
+const { getSaleById } = require('../services/sales');
+
 const checkProductId = (req, res, next) => {
   try {
   const [{ productId }] = req.body;
@@ -32,7 +34,22 @@ const checkQuantity = (req, res, next) => {
   }
 };
 
+const checkSaleById = async (req, res, next) => {
+  try {
+  const { id } = req.params;
+  const saleById = await getSaleById(id);
+
+  if (!saleById || saleById.length === 0) {
+    return res.status(404).json({ message: 'Sale not found' });
+  }
+    next();
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   checkProductId,
   checkQuantity,
+  checkSaleById,
 };
