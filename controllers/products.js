@@ -16,9 +16,6 @@ const getByIdProducts = async (req, res, next) => {
   try {
     const productById = await serviceProducts.getByIdProducts(id);
 
-    if (!productById || productById.length === 0) {
-      return res.status(404).json({ message: 'Product not found' });
-    }
     return res.status(200).json(productById);
   } catch (e) {
     next(e);
@@ -36,8 +33,22 @@ const createProducts = async (req, res, next) => {
     next(e);
   }
 };
+
+const updateProduct = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name, quantity } = req.body;
+
+    const upDate = await serviceProducts.updateProduct(id, name, quantity);
+
+    return res.status(200).json(upDate);
+  } catch (e) {
+   next(e);
+  }
+};
 module.exports = {
   getAllProducts,
   getByIdProducts,
   createProducts,
+  updateProduct,
 };
