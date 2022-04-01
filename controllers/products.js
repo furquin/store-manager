@@ -4,7 +4,7 @@ const getAllProducts = async (req, res, next) => {
   try {
     const allProducts = await serviceProducts.getAllProducts();
 
-    res.status(200).json(allProducts);
+    return res.status(200).json(allProducts);
   } catch (e) {
     next(e);
   }
@@ -24,7 +24,20 @@ const getByIdProducts = async (req, res, next) => {
     next(e);
   }
 };
+
+const createProducts = async (req, res, next) => {
+  try {
+    const { name, quantity } = req.body;
+
+    const newProduct = await serviceProducts.createProducts(name, quantity);
+
+    return res.status(201).json(newProduct);
+  } catch (e) {
+    next(e);
+  }
+};
 module.exports = {
   getAllProducts,
   getByIdProducts,
+  createProducts,
 };
