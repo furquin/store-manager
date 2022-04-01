@@ -12,7 +12,14 @@ const getSaleById = async (id) => {
   return saleById;
 };
 
+const createSales = async (sales) => {
+  const newSales = await modelSales.createSales(sales);
+
+  return newSales;
+};
+
 module.exports = {
   getAllSales,
   getSaleById,
+  createSales,
 };
