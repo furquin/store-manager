@@ -4,8 +4,9 @@ const {
   getSaleById,
   createSales,
   updateSales,
+  deleteSales,
 } = require('../controllers/sales');
-const { checkProductId, checkQuantity } = require('../middlewares/checkSales');
+const { checkProductId, checkQuantity, checkSaleById } = require('../middlewares/checkSales');
 
 const routes = express.Router();
 
@@ -14,7 +15,8 @@ routes.route('/')
   .get(getAllSales);
 
 routes.route('/:id')
-  .get(getSaleById)
-  .put(checkProductId, checkQuantity, updateSales);
+  .get(checkSaleById, getSaleById)
+  .put(checkProductId, checkQuantity, updateSales)
+  .delete(checkSaleById, deleteSales);
 
 module.exports = routes;
