@@ -1,4 +1,4 @@
-const { getByName } = require('../services/products');
+const { getByName, getByIdProducts } = require('../services/products');
 
 const checkNameExist = async (req, res, next) => {
   try {
@@ -51,8 +51,23 @@ const checkQuantity = (req, res, next) => {
     }
 };
 
+const checkById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const product = await getByIdProducts(id);
+    if (!product || product.length === 0) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    next();
+  } catch (e) {
+    next(e);
+  }
+};
+
 module.exports = {
   checkNameExist,
   checkName,
   checkQuantity,
+  checkById,
 };
