@@ -3,6 +3,7 @@ const {
   getAllSales,
   getSaleById,
   createSales,
+  updateSales,
 } = require('../controllers/sales');
 const { checkProductId, checkQuantity } = require('../middlewares/checkSales');
 
@@ -13,6 +14,7 @@ routes.route('/')
   .get(getAllSales);
 
 routes.route('/:id')
-  .get(getSaleById);
+  .get(getSaleById)
+  .put(checkProductId, checkQuantity, updateSales);
 
 module.exports = routes;
