@@ -1,4 +1,5 @@
 const { getSaleById } = require('../services/sales');
+const { getByIdProducts } = require('../services/products');
 
 const checkProductId = (req, res, next) => {
   try {
@@ -36,8 +37,8 @@ const checkQuantity = (req, res, next) => {
 
 const checkSaleById = async (req, res, next) => {
   try {
-  const { id } = req.params;
-  const saleById = await getSaleById(id);
+    const { id } = req.params;
+    const saleById = await getSaleById(id);
 
   if (!saleById || saleById.length === 0) {
     return res.status(404).json({ message: 'Sale not found' });
@@ -48,8 +49,26 @@ const checkSaleById = async (req, res, next) => {
   }
 };
 
+const checkQuantityProduct = async (req, res, next) => {
+  try {
+    const [{ quantity, productId }] = req.body;
+
+    const quantityProduct = await getByIdProducts(productId);
+
+    if (quantity > quantityProduct.quantity) {
+      return res
+        .status(422)
+        .json({ message: 'Such amount is not permitted to sell' });
+    }
+     next();
+   } catch (e) {
+     next(e);
+   }
+};
+
 module.exports = {
   checkProductId,
   checkQuantity,
   checkSaleById,
+  checkQuantityProduct,
 };
