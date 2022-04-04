@@ -3,6 +3,7 @@ const connection = require("../../../models/connection");
 const sinon = require("sinon");
 const { expect } = require("chai");
 
+
 const sales = [
   {
     saleId: 1,
@@ -37,7 +38,7 @@ const sale = [
   },
 ];
 
-const saleCreated = {
+const saleCreated = [{
   id: 3,
   itemsSold: [
     {
@@ -45,17 +46,17 @@ const saleCreated = {
       quantity: 9,
     },
   ],
-};
+}];
 
-const saleUpdated = {
-  saleId: "1",
+const saleUpdated = [{
+  saleId: 1,
   itemUpdated: [
     {
       productId: 1,
       quantity: 5,
     },
   ],
-};
+}];
 
 describe("testa funções salesModels", () => {
 
@@ -69,9 +70,12 @@ describe("testa funções salesModels", () => {
     });
 
     it("ao chamar retorna um array (vendas) de objetos (produtos)", async () => {
+
+      const [salesIn] = sales
+
       const result = await salesModels.getAllSales();
 
-      expect(result).to.be.equals(sales);
+      expect(result).to.be.equals(salesIn);
     });
   });
 
@@ -85,25 +89,11 @@ describe("testa funções salesModels", () => {
     });
 
     it("ao chamar retorna um array (venda) com objetos (produtos) ", async () => {
+
+      const [saleIn] = sale
       const result = await salesModels.getSaleById(1);
 
-      expect(result).to.be.equals(sale);
-    });
-  });
-
-  describe("testa função createSales", () => {
-    before(() => {
-      sinon.stub(connection, "execute").resolves(saleCreated);
-    });
-
-    after(() => {
-      connection.execute.restore();
-    });
-
-    it("ao chamar retorna um array (venda) de objetos (produtos)", async () => {
-      const result = await salesModels.createSales(1, 9);
-
-      expect(result).to.be.equals(saleCreated);
+      expect(result).to.be.equals(saleIn);
     });
   });
 
@@ -117,9 +107,11 @@ describe("testa funções salesModels", () => {
     });
 
     it("ao chamar retorna um array (venda ) de objetos atualizados (produtos)", async () => {
+
+      const [saleUpdatedIn] = saleUpdated
       const result = await salesModels.updateSales(1, 1, 5);
 
-      expect(result).to.be.equals(saleUpdated);
+      expect(result).to.be.deep.equals(saleUpdatedIn);
     });
   });
 
@@ -135,7 +127,7 @@ describe("testa funções salesModels", () => {
     it("verifica se a função foi chamada", async () => {
       await salesModels.deleteSales(1);
 
-      expect(salesModels.deleteSales.calledOnce).to.be.true;
+      expect(connection.execute.calledOnce).to.be.true;
     });
   });
 });

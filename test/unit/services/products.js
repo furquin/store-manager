@@ -47,9 +47,9 @@ describe('testa funções serviceProduct ', () => {
   before(() => {
     sinon.stub(productsModels, 'getAllProducts').resolves(products)
     sinon.stub(productsModels, "getByIdProducts").resolves(product)
-    sinon.stub(productsModels, "createProducts").resolves(product)
-    sinon.stub(productsModels, "updateProduct").resolves(product)
-    sinon.stub(productsModels, "deleteByIdProducts");
+    sinon.stub(productsModels, "createProducts").resolves(productCreated);
+    sinon.stub(productsModels, "updateProduct").resolves(productUpdated);
+    sinon.stub(productsModels, "deleteByIdProducts").resolves();
   });
 
   after(() => {

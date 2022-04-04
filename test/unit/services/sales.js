@@ -5,6 +5,7 @@ const sinon = require("sinon");
 const salesModels = require("../../../models/sales");
 const salesServices = require("../../../services/sales");
 
+
 const sales = [
   {
     saleId: 1,
@@ -94,7 +95,15 @@ describe("testa funções serviceSales", () => {
 
   describe("testa função createSales", () => {
     it("ao chamar retorna um novo array contendo os produtos da venda ", async () => {
-      const result = await salesServices.createSales(1, 9);
+
+      const newSale = [
+        {
+          productId: 1,
+          quantity: 9,
+        },
+      ];
+
+      const result = await salesServices.createSales(newSale);
 
       expect(result).to.be.equals(saleCreated);
     });

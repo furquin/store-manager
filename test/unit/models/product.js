@@ -3,6 +3,7 @@ const connection = require("../../../models/connection");
 const sinon = require("sinon");
 const { expect } = require("chai");
 
+
 const products = [
   {
     id: 1,
@@ -21,20 +22,20 @@ const products = [
   },
 ];
 
-const product = {
+const product = [[{
   id: 1,
   name: "Martelo de Thor",
   quantity: 10,
-};
+}]];
 
-const productCreated = {
+const productCreated = [[{
   id: 4,
   name: "laert",
-  quantity: "5",
-};
+  quantity: 5,
+}]];
 
 const productUpdated = {
-  id: "3",
+  id: 4,
   name: "furquin",
   quantity: 20,
 };
@@ -51,8 +52,8 @@ describe("testa funções productsModels", () => {
 
     it("ao chamar retorna um array com produtos", async () => {
       const result = await productsModels.getAllProducts();
-
-      expect(result).to.be.equals(products);
+      const [productsIn] = products
+      expect(result).to.be.equals(productsIn);
     });
   });
 
@@ -66,15 +67,18 @@ describe("testa funções productsModels", () => {
     });
 
     it("ao chamar retorna um objeto com produto", async () => {
+
+      const [[productIn]] = product
+
       const result = await productsModels.getByIdProducts(1);
 
-      expect(result).to.be.equals(product);
+      expect(result).to.be.equals(productIn);
     });
   });
 
   describe("testa função createProducts", () => {
     before(() => {
-      sinon.stub(connection, "execute").resolves(productCreated);
+      sinon.stub(connection, "execute").resolves([{insertId: 4}]);
     });
 
     after(() => {
@@ -82,12 +86,11 @@ describe("testa funções productsModels", () => {
     });
 
     it("ao chamar retorna um objeto com produto criado", async () => {
-      const result = await productsModels.createProducts({
-        name: "laert",
-        quantity: 5,
-      });
 
-      expect(result).to.be.equals(productCreated);
+      const [[productCreatedIn]] = productCreated
+      const result = await productsModels.createProducts("laert", 5);
+
+      expect(result).to.be.deep.equals(productCreatedIn);
     });
   });
 
@@ -101,13 +104,10 @@ describe("testa funções productsModels", () => {
     });
 
     it("ao chamar retorna um objeto com produto atualizado", async () => {
-      const result = await productsModels.updateProduct({
-        id: 3,
-        name: "furquin",
-        quantity: 20,
-      });
 
-      expect(result).to.be.equals(productUpdated);
+
+      const result = await productsModels.updateProduct(4, 'furquin', 20);
+      expect(result).to.be.deep.equals(productUpdated);
     });
   });
 
@@ -123,7 +123,7 @@ describe("testa funções productsModels", () => {
     it("verifica se a função foi chamada", async () => {
       await productsModels.deleteByIdProducts(1);
 
-      expect(productsModels.deleteByIdProducts.calledOnce).to.be.true;
+      expect(connection.execute.calledOnce).to.be.true;
     });
   });
 });

@@ -5,6 +5,7 @@ const sinon = require("sinon");
 const salesControllers = require("../../../controllers/sales");
 const salesServices = require("../../../services/sales");
 
+
 const sales = [
   {
     saleId: 1,
@@ -63,6 +64,7 @@ describe('testa funções salesControllers', () => {
 
   const req = {};
   const res = {};
+  const next = {}
 
   before(() => {
     res.status = sinon.stub().returns(res);
@@ -107,9 +109,9 @@ describe('testa funções salesControllers', () => {
 
   describe('testa função createSales', () => {
     it('ao chamar retorna um array com venda cria e status 201', async () => {
-      req.body = { productId: 1, quantity: 9 }
+      req.body = [{ productId: 1, quantity: 9 }]
 
-      await salesControllers.createSales(req, res)
+      await salesControllers.createSales(req, res);
 
       expect(res.status.calledWith(201)).to.be.true
       expect(res.json.calledWith(saleCreated)).to.be.true
@@ -119,12 +121,12 @@ describe('testa funções salesControllers', () => {
   describe('testa função updateSales', () => {
     it('ao chamar retorna um array com objeto atualizado e status 200', async () => {
       req.params = 1
-      req.body = { productId: 1, quantity: 5 }
+      req.body = [{ productId: 1, quantity: 5 }]
 
-      await salesControllers.updateSales(req, res)
+      await salesControllers.updateSales(req, res);
 
       expect(res.status.calledWith(200)).to.be.true
-      expect(res.json.calledWith(updatedSales)).to.be.true
+      expect(res.json.calledWith(saleUpdated)).to.be.true;
     })
   })
 

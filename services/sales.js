@@ -19,7 +19,6 @@ const createSales = async (sales) => {
   const newSales = await modelSales.createSales(sales);
 
   await modelProducts.updateQuantitySale(productId, quantity);
-
   return newSales;
 };
 
