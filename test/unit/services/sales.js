@@ -4,6 +4,7 @@ const sinon = require("sinon");
 
 const salesModels = require("../../../models/sales");
 const salesServices = require("../../../services/sales");
+const productsModels = require("../../../models/products")
 
 
 const sales = [
@@ -60,6 +61,13 @@ const saleUpdated = {
   ],
 };
 
+const newSale = [
+  {
+    productId: 1,
+    quantity: 9,
+  },
+];
+
 describe("testa funções serviceSales", () => {
   before(() => {
     sinon.stub(salesModels, "getAllSales").resolves(sales);
@@ -67,6 +75,8 @@ describe("testa funções serviceSales", () => {
     sinon.stub(salesModels, "createSales").resolves(saleCreated);
     sinon.stub(salesModels, "updateSales").resolves(saleUpdated);
     sinon.stub(salesModels, "deleteSales").resolves();
+    sinon.stub(productsModels, "updateQuantitySale").resolves();
+    sinon.stub(productsModels, "updateQuantityDelete").resolves();
   });
 
   after(() => {
@@ -95,13 +105,6 @@ describe("testa funções serviceSales", () => {
 
   describe("testa função createSales", () => {
     it("ao chamar retorna um novo array contendo os produtos da venda ", async () => {
-
-      const newSale = [
-        {
-          productId: 1,
-          quantity: 9,
-        },
-      ];
 
       const result = await salesServices.createSales(newSale);
 
