@@ -1,3 +1,5 @@
+--! Este arquivo é de direito e autoria da trybe, mantido apenas para melhor entendimentos dos desafios descritos. 
+
 DROP DATABASE IF EXISTS StoreManager;
 
 CREATE DATABASE StoreManager;
