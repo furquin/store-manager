@@ -6,7 +6,7 @@
 <br>
 
 <div align="center"> 
-    <img width="600px" height="300px" align="center"src="./README/Testes.gif">
+    <img width="1000px" height="500px" align="center"src="./README/Testes.gif">
 </div>
 
 <br>
