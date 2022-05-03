@@ -5,6 +5,13 @@
 <br>
 <br>
 
+<div align="center"> 
+    <img width="600px" height="300px" align="center"src="./README/Testes.gif">
+</div>
+
+<br>
+<br>
+
 # Sumario
    - [Sobre](#sobre)
    - [Tecnologias](#tecnologias-utilizadas)
@@ -14,7 +21,7 @@
 
 # Sobre
 
-### Projeto desenvolvido enquanto estudante na [trybe](https://www.betrybe.com/formacao-desenvolvimento-web), Esse foi minha primeira API com arquitetura MSC(model, service, controller), a API se refere a um sistema de gerenciamento de vendas, foram implementadas 10 rotas, com diferentes funções, como deletar, atualizar e criar, cada rota conta com um ou alguns middlewares de verificação das regras de negocio, lançando diferentes tipos de status codes.
+### Projeto desenvolvido enquanto estudante na [trybe](https://www.betrybe.com/formacao-desenvolvimento-web), Esse foi minha primeira API com arquitetura MSC(model, service, controller), a API se refere a um sistema de gerenciamento de vendas, foram implementadas 10 rotas, com diferentes funções, como deletar, atualizar e criar, cada rota conta com um ou alguns middlewares de verificação das regras de negocio, lançando diferentes tipos de status codes, o diferencial desse projeto foi foram a utilização de arquitetura MSC e a implementação de testes unitários.
 
 #
 
